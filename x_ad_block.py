@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
 import re
 import sys
 import time
@@ -55,7 +54,6 @@ def delete_modal():
 
 def mute():
     try:
-        # TODO ツイート内容に「プロモーション」が含まれる場合の対策をする
         article = driver.find_element(By.XPATH, "//article[descendant::span[contains(text(), 'プロモーション')]]")
         button = article.find_element(By.XPATH, ".//button[@aria-label='もっと見る']")
         button.click()
@@ -65,11 +63,17 @@ def mute():
         for span in spans:
             match = pattern.match(span.text)
             if match:
-                span.click()
-                print(match.group() + "しました")
-                delete_modal()
+                sibiling_span = span.find_element(By.XPATH, "../../../..").find_elements(By.XPATH, "./*")[0].find_elements(By.TAG_NAME, "span")[0]
+                if sibiling_span.text == 'この広告が表示されている理由':
+                    span.click()
+                    print(match.group() + "しました")
+                    delete_modal()
+                else:
+                    print(match.group() + "しませんでした")
         
     except Exception as e:
+        # print(e)
+        # traceback.print_exc()
         pass
 
     # スクロールして再帰呼び出し
