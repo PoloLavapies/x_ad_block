@@ -13,12 +13,11 @@ import traceback
 USER_ID = os.environ.get("ACCOUNT")
 PASSWORD = os.environ.get("PASSWORD")
 PHONE_NUMBER = os.environ.get("PHONE")
+TIME_TO_SLEEP = 3
+TIME_TO_SLEEP_LONG = 6
 
 URL_LOGIN = "https://twitter.com/login"
 URL_TIMELINE = "https://x.com"
-
-TIME_TO_SLEEP = 3
-TIME_TO_SLEEP_LONG = 6
 
 def login():
     driver.get(URL_LOGIN)
@@ -29,18 +28,27 @@ def login():
     user_id_form.send_keys(Keys.ENTER)
     time.sleep(TIME_TO_SLEEP)
 
-    try:
-        phone_number_form = driver.find_element(By.XPATH, '//input[@name="text"]')
-        phone_number_form.send_keys(PHONE_NUMBER)
-        phone_number_form.send_keys(Keys.ENTER)
-        time.sleep(TIME_TO_SLEEP_LONG)
-    except:
-        pass
+    screenshot_path = "./screenshot1.png"
+    driver.save_screenshot(screenshot_path)
 
     password_form = driver.find_element(By.XPATH,'//input[@autocomplete="current-password"]')
     password_form.send_keys(PASSWORD)
     password_form.send_keys(Keys.ENTER)
     time.sleep(TIME_TO_SLEEP)
+
+    screenshot_path = "./screenshot2.png"
+    driver.save_screenshot(screenshot_path)
+
+    try:
+        phone_number_form = driver.find_element(By.XPATH, '//input[@name="text"]')
+        phone_number_form.send_keys(PHONE_NUMBER)
+        phone_number_form.send_keys(Keys.ENTER)
+        time.sleep(TIME_TO_SLEEP)
+    except:
+        pass
+
+    screenshot_path = "./screenshot3.png"
+    driver.save_screenshot(screenshot_path)
 
 def scroll():
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -97,22 +105,21 @@ options.add_argument("window-size=1920,1080")
 options.add_argument("--disable-extensions")
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-#service = Service("/usr/bin/chromedriver")
 driver = webdriver.Chrome(options=options)
 
 login()
 time.sleep(TIME_TO_SLEEP_LONG)
 
 start_time = datetime.now()
+print("ミュート処理を開始していきます")
+screenshot_path = "./screenshot4.png"
+driver.save_screenshot(screenshot_path)
 while True:
     current_time = datetime.now()
     elapsed_time = (current_time - start_time).total_seconds()
     if elapsed_time >= 300:
         print("5分経過したので処理を終了します。")
         break
-    print("ミュート処理を開始していきます")
-    screenshot_path = "./screenshot1.png"
-    driver.save_screenshot(screenshot_path)
     mute()
     driver.get(URL_TIMELINE)
-    time.sleep(TIME_TO_SLEEP)
+    time.sleep(TIME_TO_SLEEP_LONG)

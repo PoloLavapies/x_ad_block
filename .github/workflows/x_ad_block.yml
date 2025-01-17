@@ -27,3 +27,10 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         PHONE: ${{ secrets.PHONE }}
       run: python x_ad_block.py
+    
+    - name: Upload screenshot
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: screenshot
+        path: screenshot1.png
