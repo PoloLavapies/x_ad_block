@@ -128,8 +128,8 @@ driver.save_screenshot(screenshot_path)
 while True:
     current_time = datetime.now()
     elapsed_time = (current_time - start_time).total_seconds()
-    if elapsed_time >= 300:
-        print("5分経過したので処理を終了します。")
+    if elapsed_time >= 600:
+        print("10分経過したので処理を終了します。")
         break
     mute()
     driver.get(URL_TIMELINE)
