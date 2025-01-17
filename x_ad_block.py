@@ -1,3 +1,4 @@
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -103,12 +104,21 @@ options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 print("調査用ログ1")
 driver = webdriver.Chrome(options=options)
 print("調査用ログ2")
+# これ消せるよね
 driver.set_window_size(1920, 1080)
 print("調査用ログ3")
+
 login()
 print("調査用ログ4")
 time.sleep(TIME_TO_SLEEP_LONG)
+
+start_time = datetime.now()
 while True:
+    current_time = datetime.now()
+    elapsed_time = (current_time - start_time).total_seconds()
+    if elapsed_time >= 300:
+        print("5分経過したので処理を終了します。")
+        break
     mute()
     driver.get(URL_TIMELINE)
     time.sleep(TIME_TO_SLEEP)
