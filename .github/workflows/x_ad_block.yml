@@ -32,5 +32,8 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: screenshot
-        path: screenshot1.png
+        name: screenshots
+        path: |
+          screenshot1.png
+          screenshot2.png
+          screenshot3.png

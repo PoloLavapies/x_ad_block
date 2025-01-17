@@ -31,12 +31,23 @@ def login():
     screenshot_path = "./screenshot1.png"
     driver.save_screenshot(screenshot_path)
 
+    try:
+        phone_number_form = driver.find_element(By.XPATH, '//input[@name="text"]')
+        phone_number_form.send_keys(PHONE_NUMBER)
+        phone_number_form.send_keys(Keys.ENTER)
+        time.sleep(TIME_TO_SLEEP)
+    except:
+        pass
+
+    screenshot_path = "./screenshot2.png"
+    driver.save_screenshot(screenshot_path)
+
     password_form = driver.find_element(By.XPATH,'//input[@autocomplete="current-password"]')
     password_form.send_keys(PASSWORD)
     password_form.send_keys(Keys.ENTER)
     time.sleep(TIME_TO_SLEEP)
 
-    screenshot_path = "./screenshot2.png"
+    screenshot_path = "./screenshot3.png"
     driver.save_screenshot(screenshot_path)
 
     try:
@@ -47,7 +58,7 @@ def login():
     except:
         pass
 
-    screenshot_path = "./screenshot3.png"
+    screenshot_path = "./screenshot4.png"
     driver.save_screenshot(screenshot_path)
 
 def scroll():
@@ -112,7 +123,7 @@ time.sleep(TIME_TO_SLEEP_LONG)
 
 start_time = datetime.now()
 print("ミュート処理を開始していきます")
-screenshot_path = "./screenshot4.png"
+screenshot_path = "./screenshot5.png"
 driver.save_screenshot(screenshot_path)
 while True:
     current_time = datetime.now()
