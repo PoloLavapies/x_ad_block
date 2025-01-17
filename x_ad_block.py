@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import os
@@ -84,7 +85,11 @@ def mute():
     if height != new_height:
         mute()
 
-driver = webdriver.Chrome()
+options = Options()
+options.add_argument("--headless")  # ヘッドレスモードを有効化
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+driver = webdriver.Chrome(options=options)
 driver.set_window_size(1920, 1080)
 login()
 time.sleep(TIME_TO_SLEEP_LONG)
