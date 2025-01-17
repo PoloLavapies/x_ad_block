@@ -1,15 +1,15 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import os
 import re
-import sys
 import time
 import traceback
 
 # twitterのユーザー情報
-USER_ID = sys.argv[1]
-PASSWORD = sys.argv[2]
-PHONE_NUMBER = sys.argv[3]
+USER_ID = os.environ.get("ACCOUNT")
+PASSWORD = os.environ.get("PASSWORD")
+PHONE_NUMBER = os.environ.get("PHONE")
 
 URL_LOGIN = "https://twitter.com/login"
 URL_TIMELINE = "https://x.com"
