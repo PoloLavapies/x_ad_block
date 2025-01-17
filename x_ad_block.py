@@ -24,9 +24,6 @@ def login():
     driver.get(URL_LOGIN)
     time.sleep(TIME_TO_SLEEP_LONG)
 
-    # screenshot_path = "./screenshot1.png"
-    # driver.save_screenshot(screenshot_path)
-
     user_id_form = driver.find_element(By.XPATH,'//input[@autocomplete="username"]')
     user_id_form.send_keys(USER_ID)
     user_id_form.send_keys(Keys.ENTER)
@@ -101,15 +98,9 @@ options.add_argument("--disable-extensions")
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 #service = Service("/usr/bin/chromedriver")
-print("調査用ログ1")
 driver = webdriver.Chrome(options=options)
-print("調査用ログ2")
-# これ消せるよね
-driver.set_window_size(1920, 1080)
-print("調査用ログ3")
 
 login()
-print("調査用ログ4")
 time.sleep(TIME_TO_SLEEP_LONG)
 
 start_time = datetime.now()
@@ -119,6 +110,9 @@ while True:
     if elapsed_time >= 300:
         print("5分経過したので処理を終了します。")
         break
+    print("ミュート処理を開始していきます")
+    screenshot_path = "./screenshot1.png"
+    driver.save_screenshot(screenshot_path)
     mute()
     driver.get(URL_TIMELINE)
     time.sleep(TIME_TO_SLEEP)
