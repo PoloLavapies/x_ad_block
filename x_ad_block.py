@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import os
@@ -21,6 +22,9 @@ TIME_TO_SLEEP_LONG = 6
 def login():
     driver.get(URL_LOGIN)
     time.sleep(TIME_TO_SLEEP_LONG)
+
+    # screenshot_path = "./screenshot1.png"
+    # driver.save_screenshot(screenshot_path)
 
     user_id_form = driver.find_element(By.XPATH,'//input[@autocomplete="username"]')
     user_id_form.send_keys(USER_ID)
@@ -86,12 +90,23 @@ def mute():
         mute()
 
 options = Options()
-options.add_argument("--headless")  # ヘッドレスモードを有効化
+#options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-gpu")
+options.add_argument("start-maximized")
+options.add_argument("window-size=1920,1080")
+options.add_argument("--disable-extensions")
+options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+#service = Service("/usr/bin/chromedriver")
+print("調査用ログ1")
 driver = webdriver.Chrome(options=options)
+print("調査用ログ2")
 driver.set_window_size(1920, 1080)
+print("調査用ログ3")
 login()
+print("調査用ログ4")
 time.sleep(TIME_TO_SLEEP_LONG)
 while True:
     mute()
